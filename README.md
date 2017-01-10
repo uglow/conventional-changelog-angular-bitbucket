@@ -17,7 +17,7 @@ See [convention](convention.md).
 ## Why does this exist?
 
 The [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog) preset
-assumes that the repository is hosted on GitHub, bit it will still work (with limited functionality) for non-GitHub repositories.
+assumes that the repository is hosted on GitHub, but it will still work (with limited functionality) for non-GitHub repositories.
 
 This preset aims to produce a changelog that contains the correct formatting and links for BitBucket.
  
