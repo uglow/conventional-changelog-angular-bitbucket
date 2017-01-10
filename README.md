@@ -1,6 +1,6 @@
 > [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [Angular](https://github.com/angular/angular) preset for BitBucket repositories
 
-See [convention](convention.md)
+See [convention](convention.md).
 
 **Issues with the convention itself should be reported on the angular issue tracker.**
 
