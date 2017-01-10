@@ -8,8 +8,8 @@ See [convention](convention.md).
 [![NPM Version](https://img.shields.io/npm/v/conventional-changelog-angular-bitbucket.svg?style=flat-square)](http://npm.im/conventional-changelog-angular-bitbucket)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Coverage Status](https://coveralls.io/repos/github/conventional-changelog-angular-bitbucket/badge.svg?branch=master)](https://coveralls.io/github/conventional-changelog-angular-bitbucket?branch=master)
-[![Dependencies status](https://david-dm.org/conventional-changelog-angular-bitbucket/status.svg?theme=shields.io)](https://david-dm.org/conventional-changelog-angular-bitbucket#info=dependencies)
-[![Dev-dependencies status](https://david-dm.org/conventional-changelog-angular-bitbucket/dev-status.svg?theme=shields.io)](https://david-dm.org/conventional-changelog-angular-bitbucket#info=devDependencies)
+[![Dependencies status](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket/status.svg?theme=shields.io)](https://david-dm.org/conventional-changelog-angular-bitbucket#info=dependencies)
+[![Dev-dependencies status](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket/dev-status.svg?theme=shields.io)](https://david-dm.org/conventional-changelog-angular-bitbucket#info=devDependencies)
 
 
 <!--[]-->
