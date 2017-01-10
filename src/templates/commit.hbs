@@ -1,0 +1,14 @@
+*{{#if scope}} **{{scope}}:**
+{{~/if}} {{#if subject}}
+  {{~subject}}
+{{~else}}
+  {{~header}}
+{{~/if}}
+
+{{~!-- commit link --}} ({{hash}})
+
+{{~!-- commit references --}}
+{{~#if references~}}
+  , closes {{#each references}}{{this.raw}}{{/each}}
+{{~/if}}
+
