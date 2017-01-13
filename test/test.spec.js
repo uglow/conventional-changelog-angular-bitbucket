@@ -87,13 +87,13 @@ describe('angular preset', function() {
         expect(chunk).to.not.include('***:**');
         expect(chunk).to.not.include(': Not backward compatible.');
 
-        expect(chunk).to.match(/oops \(.*\)/);      // commit hash is not linked!
+        expect(chunk).to.match(/oops \(\[[0-9a-z]{7}\]\(http:\/\/any.bbucket.host:7999\/projects\/proj\/repos\/repo-name\/commits\/[0-9a-z]{7}\)\)/);      // commit hash is linked
 
         done();
       }));
   });
 
-  it('should NOT replace #[0-9]+ with GitHub issue URL, as this is Bitbucket', function(done) {
+  it('should NOT generate issue links because we don\'t know the issue tracker URL on BitBucket', function(done) {
     preparing(2);
 
     conventionalChangelogCore({
@@ -112,7 +112,7 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should remove issue links that already appear in the subject (and not put issue links into the subject)', function(done) {
+  it('should not generate issue refs in the footer when they appear in the subject', function(done) {
     preparing(3);
 
     conventionalChangelogCore({
@@ -124,12 +124,12 @@ describe('angular preset', function() {
       .pipe(through(function(chunk) {
         chunk = chunk.toString();
         expect(chunk).to.include(' fix #88');
-        expect(chunk).to.not.include('closes [#88](https://github.com/uglow/conventional-changelog-angular-bitbucket/issues/88)');
+        expect(chunk).to.not.include('closes [#88](');
         done();
       }));
   });
 
-  it('should NOT replace @username with GitHub user URL', function(done) {
+  it('should NOT replace @username with GitHub user URL as feature is not available on BitBucket', function(done) {
     preparing(4);
 
     conventionalChangelogCore({
@@ -167,7 +167,7 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should BREAKING CHANGES the same as BREAKING CHANGE', function(done) {
+  it('should render BREAKING CHANGES the same as BREAKING CHANGE', function(done) {
     preparing(6);
 
     conventionalChangelogCore({
@@ -179,6 +179,7 @@ describe('angular preset', function() {
       .pipe(through(function(chunk) {
         chunk = chunk.toString();
 
+        expect(chunk).to.include('BREAKING CHANGES');
         expect(chunk).to.include('Also works :)');
 
         done();

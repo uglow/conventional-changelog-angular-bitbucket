@@ -24,7 +24,7 @@ This preset aims to produce a changelog that contains the correct formatting and
 ### Differences to [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog)
 - Issue links are highlighted automatically by BitBucket
 - @-mentions are highlighted automatically by BitBucket
-- Commit links are highlighted automatically by BitBucket
+- Commit links use a different format
 - Comparison links (between two versions) use a different format
 
 <!--[RM_INSTALL]-->
