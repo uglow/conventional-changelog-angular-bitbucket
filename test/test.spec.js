@@ -243,4 +243,28 @@ describe('angular preset', function() {
         done();
       }));
   });
+
+  it('should support directly utilizing http/https repository urls', function(done) {
+    preparing(8);
+    let i = 0;
+
+    conventionalChangelogCore({
+      config: preset,
+      pkg: {
+        path: __dirname + '/fixtures/bitbucket-http-host.json',
+      },
+    }).on('error', done).pipe(through(function(chunk, enc, cb) {
+      chunk = chunk.toString();
+
+      expect(chunk).to.include('/compare/');
+      expect(chunk).to.include('/commits/');
+      expect(chunk).to.match(/some more features \(.*\)/);
+
+      i++;
+      cb();
+    }, function() {
+      expect(i).to.equal(1);
+      done();
+    }));
+  });
 });
