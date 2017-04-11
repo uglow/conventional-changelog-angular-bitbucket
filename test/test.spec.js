@@ -256,8 +256,8 @@ describe('angular preset', function() {
     }).on('error', done).pipe(through(function(chunk, enc, cb) {
       chunk = chunk.toString();
 
-      expect(chunk).to.include('/compare/');
-      expect(chunk).to.include('/commits/');
+      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/compare/');
+      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/commits/');
       expect(chunk).to.match(/some more features \(.*\)/);
 
       i++;
