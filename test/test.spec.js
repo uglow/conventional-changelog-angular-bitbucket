@@ -243,4 +243,28 @@ describe('angular preset', function() {
         done();
       }));
   });
+
+  it('should support directly utilizing http/https repository urls', function(done) {
+    preparing(8);
+    let i = 0;
+
+    conventionalChangelogCore({
+      config: preset,
+      pkg: {
+        path: __dirname + '/fixtures/bitbucket-http-host.json',
+      },
+    }).on('error', done).pipe(through(function(chunk, enc, cb) {
+      chunk = chunk.toString();
+
+      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/compare/');
+      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/commits/');
+      expect(chunk).to.match(/some more features \(.*\)/);
+
+      i++;
+      cb();
+    }, function() {
+      expect(i).to.equal(1);
+      done();
+    }));
+  });
 });
