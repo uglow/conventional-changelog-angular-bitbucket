@@ -207,7 +207,7 @@ describe('angular preset', function() {
         expect(chunk).to.not.include('BREAKING');
 
         expect(chunk).to.include('http://any.bbucket.host:7999/proj/repo-name/compare/' +
-          'v1.0.0%0Dv2.0.0#diff');
+          'v2.0.0%0Dv1.0.0#diff');
 
         i++;
         cb();
