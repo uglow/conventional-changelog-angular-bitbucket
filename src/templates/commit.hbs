@@ -9,10 +9,10 @@
   ([{{hash}}](
   {{~#if @root.repository~}}
     {{~#if @root.host}}
-      {{~@root.host}}/projects/
+      {{~@root.host}}/
     {{~/if}}
     {{~#if @root.owner~}}
-      {{~@root.owner}}/repos/
+      {{~@root.owner}}/
     {{~/if~}}
     {{~@root.repository}}/
   {{~else}}
@@ -27,4 +27,3 @@
 {{~#if references~}}
   , closes {{#each references}}{{this.raw}}{{/each}}
 {{~/if}}
-

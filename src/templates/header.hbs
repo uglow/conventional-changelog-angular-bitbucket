@@ -7,16 +7,16 @@
   [{{version}}](
   {{~#if @root.repository~}}
     {{~#if @root.host}}
-      {{~@root.host}}/projects/
+      {{~@root.host}}/
     {{~/if}}
     {{~#if @root.owner~}}
-      {{~@root.owner}}/repos/
+      {{~@root.owner}}/
     {{~/if~}}
     {{~@root.repository}}/
   {{~else}}
     {{~@root.repoUrl}}/
   {{~/if~}}
-  compare/diff?targetBranch=refs%2Ftags%2F{{previousTag}}&sourceBranch=refs%2Ftags%2F{{currentTag}})
+  compare/{{previousTag}}%0D{{currentTag}}#diff)
 {{~else}}
   {{~version}}
 {{~/if}}

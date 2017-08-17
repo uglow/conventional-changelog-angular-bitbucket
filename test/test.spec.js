@@ -87,7 +87,7 @@ describe('angular preset', function() {
         expect(chunk).to.not.include('***:**');
         expect(chunk).to.not.include(': Not backward compatible.');
 
-        expect(chunk).to.match(/oops \(\[[0-9a-z]{7}\]\(http:\/\/any.bbucket.host:7999\/projects\/proj\/repos\/repo-name\/commits\/[0-9a-z]{7}\)\)/);      // commit hash is linked
+        expect(chunk).to.match(/oops \(\[[0-9a-z]{7}\]\(http:\/\/any.bbucket.host:7999\/proj\/repo-name\/commits\/[0-9a-z]{7}\)\)/);      // commit hash is linked
 
         done();
       }));
@@ -206,8 +206,8 @@ describe('angular preset', function() {
         expect(chunk).to.include('some more features');
         expect(chunk).to.not.include('BREAKING');
 
-        expect(chunk).to.include('http://any.bbucket.host:7999/projects/proj/repos/repo-name/compare/diff?targetBranch' +
-          '=refs%2Ftags%2Fv1.0.0&sourceBranch=refs%2Ftags%2Fv2.0.0');
+        expect(chunk).to.include('http://any.bbucket.host:7999/proj/repo-name/compare/' +
+          'v1.0.0%0Dv2.0.0#diff');
 
         i++;
         cb();
@@ -256,8 +256,8 @@ describe('angular preset', function() {
     }).on('error', done).pipe(through(function(chunk, enc, cb) {
       chunk = chunk.toString();
 
-      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/compare/');
-      expect(chunk).to.include('https://bitbucket.example.com/projects/EX/repos/example-repo/commits/');
+      expect(chunk).to.include('https://bitbucket.example.com/EX/example-repo/compare/');
+      expect(chunk).to.include('https://bitbucket.example.com/EX/example-repo/commits/');
       expect(chunk).to.match(/some more features \(.*\)/);
 
       i++;
