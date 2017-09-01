@@ -27,6 +27,7 @@ betterThanBefore.setups([
   },
   function() {
     gitDummyCommit(['feat(awesome): addresses the issue brought up in #133']);
+    gitDummyCommit(['revert(ngOptions): bad commit', 'closes #24']);
   },
   function() {
     gitDummyCommit(['feat(awesome): fix #88']);
@@ -93,11 +94,31 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should NOT generate issue links because we don\'t know the issue tracker URL on BitBucket', function(done) {
+  it('should generate issue links if it\'s present in package.json', function(done) {
     preparing(2);
 
     conventionalChangelogCore({
       config: preset,
+    })
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk) {
+        chunk = chunk.toString();
+        expect(chunk).to.include('in [#133](https://github.com/uglow/conventional-changelog-angular-bitbucket/issues/133)');
+        done();
+      }));
+  });
+
+  it('should NOT generate issue links when we don\'t we don\'t have a path', function(done) {
+    preparing(3);
+
+    conventionalChangelogCore({
+      config: preset,
+      context: {
+        packageData: {
+        },
+      },
       pkg: {
         path: __dirname + '/fixtures/bitbucket-host.json',
       },
@@ -117,13 +138,18 @@ describe('angular preset', function() {
 
     conventionalChangelogCore({
       config: preset,
+      context: {
+        packageData: {
+
+        },
+      },
     })
       .on('error', function(err) {
         done(err);
       })
       .pipe(through(function(chunk) {
         chunk = chunk.toString();
-        expect(chunk).to.include(' fix #88');
+        expect(chunk).to.include(' fix [#88]');
         expect(chunk).to.not.include('closes [#88](');
         done();
       }));
