@@ -49,6 +49,9 @@ betterThanBefore.setups([
     shell.exec('git tag v1.0.0');
     gitDummyCommit('feat: some more features');
   },
+  function() {
+    gitDummyCommit(['feat(foo): add thing', 'closes #1223 #OBG-23']);
+  },
 ]);
 
 describe('angular preset', function() {
@@ -110,7 +113,7 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should NOT generate issue links when we don\'t we don\'t have a path', function(done) {
+  it('should NOT generate issue links when we don\'t have a path', function(done) {
     preparing(3);
 
     conventionalChangelogCore({
@@ -292,5 +295,28 @@ describe('angular preset', function() {
       expect(i).to.equal(1);
       done();
     }));
+  });
+
+  it('should render comma delimited issues reference in \'closes\' when having multiple references', function(done) {
+    preparing(9);
+
+    conventionalChangelogCore({
+      config: preset,
+      context: {
+        packageData: {
+        },
+      },
+      pkg: {
+        path: __dirname + '/fixtures/bitbucket-host.json',
+      },
+    })
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk) {
+        chunk = chunk.toString();
+        expect(chunk).to.include('closes #1223, #OBG-23');
+        done();
+      }));
   });
 });
