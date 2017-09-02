@@ -60,7 +60,7 @@ let writerOpts = {
     const issueUrl = context.packageData.bugs && context.packageData.bugs.url;
 
     if (typeof commit.subject === 'string') {
-      commit.subject = commit.subject.replace(/#([A-Z0-9\-]+)/g, function(_, issue) {
+      commit.subject = commit.subject.replace(/#([a-zA-Z0-9\-]+)/g, function(_, issue) {
         issues.push(issue);
         return formatIssue(issueUrl, issue);
       });
