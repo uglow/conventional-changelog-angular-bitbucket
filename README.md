@@ -10,6 +10,7 @@ See [convention](convention.md).
 [![Coverage Status](https://coveralls.io/repos/github/uglow/conventional-changelog-angular-bitbucket/badge.svg?branch=master)](https://coveralls.io/github/uglow/conventional-changelog-angular-bitbucket?branch=master)
 [![Dependencies status](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket/status.svg?theme=shields.io)](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket#info=dependencies)
 [![Dev-dependencies status](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket/dev-status.svg?theme=shields.io)](https://david-dm.org/uglow/conventional-changelog-angular-bitbucket#info=devDependencies)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 
 <!--[]-->

@@ -40,6 +40,7 @@ betterThanBefore.setups([
     gitDummyCommit(['style(whitespace): make it easier to read', 'BREAKING CHANGE: The Change is huge.']);
     gitDummyCommit(['refactor(code): change a lot of code', 'BREAKING CHANGE: The Change is huge.']);
     gitDummyCommit(['test(*): more tests', 'BREAKING CHANGE: The Change is huge.']);
+    gitDummyCommit(['WIP: Just in the middle of something...']);
     gitDummyCommit(['chore(deps): bump', 'BREAKING CHANGE: The Change is huge.']);
   },
   function() {
@@ -73,7 +74,7 @@ describe('angular preset', function() {
         expect(chunk).to.include('amazing new module');
         expect(chunk).to.include('**compile:** avoid a bug');
         expect(chunk).to.include('make it faster');
-        expect(chunk).to.include(', closes #1, #2');      // Links are not created
+        expect(chunk).to.include(', closes #1, #2'); // Links are not created
         expect(chunk).to.include('Not backward compatible.');
         expect(chunk).to.include('**compile:** The Change is huge.');
         expect(chunk).to.include('Features');
@@ -91,7 +92,7 @@ describe('angular preset', function() {
         expect(chunk).to.not.include('***:**');
         expect(chunk).to.not.include(': Not backward compatible.');
 
-        expect(chunk).to.match(/oops \(\[[0-9a-z]{7}\]\(http:\/\/any.bbucket.host:7999\/projects\/proj\/repos\/repo-name\/commits\/[0-9a-z]{7}\)\)/);      // commit hash is linked
+        expect(chunk).to.match(/oops \(\[[0-9a-z]{7}\]\(http:\/\/any.bbucket.host:7999\/projects\/proj\/repos\/repo-name\/commits\/[0-9a-z]{7}\)\)/); // commit hash is linked
 
         done();
       }));
@@ -120,7 +121,7 @@ describe('angular preset', function() {
     conventionalChangelogCore({
       config: preset,
       context: {
-        packageData: {},    // Empty package data
+        packageData: {}, // Empty package data
       },
       pkg: {
         path: __dirname + '/fixtures/bitbucket-host.json',
@@ -260,7 +261,7 @@ describe('angular preset', function() {
         chunk = chunk.toString();
 
         expect(chunk).to.include('(http://unknown/compare');
-        expect(chunk).to.match(/some more features \(.*\)/);      // No commit hash!
+        expect(chunk).to.match(/some more features \(.*\)/); // No commit hash!
 
         i++;
         cb();
