@@ -68,9 +68,9 @@ let writerOpts = {
 
     // remove references that already appear in the subject
     commit.references = commit.references
-    .filter((reference) => issues.indexOf(reference.issue) === -1)
-    .map((reference) => formatIssue(issueUrl, reference.issue))
-    .join(', ');
+      .filter((reference) => issues.indexOf(reference.issue) === -1)
+      .map((reference) => formatIssue(issueUrl, reference.issue))
+      .join(', ');
 
     return commit;
   },
@@ -100,9 +100,9 @@ module.exports = Q.all([
   });
 
 function formatIssue(issueUrl, issue) {
-    if (issueUrl) {
-      return '[#' + issue + '](' + issueUrl + '/' + issue + ')';
-    } else {
-      return '#' + issue;
-    }
+  if (issueUrl) {
+    return '[#' + issue + '](' + issueUrl + '/' + issue + ')';
+  } else {
+    return '#' + issue;
+  }
 }

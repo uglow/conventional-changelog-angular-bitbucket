@@ -30,7 +30,7 @@ betterThanBefore.setups([
     gitDummyCommit(['revert(ngOptions): bad commit', 'closes #24']);
   },
   function() {
-    gitDummyCommit(['feat(awesome): fix #88']);
+    gitDummyCommit(['feat(awesome): fix #88 #TR-55']);
   },
   function() {
     gitDummyCommit(['feat(awesome): issue brought up by @bcoe! on Friday']);
@@ -97,11 +97,12 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should generate issue links if it\'s present in package.json', function(done) {
+  it('should generate issue links if package.json has a bugs URL', function(done) {
     preparing(2);
 
     conventionalChangelogCore({
       config: preset,
+      // Default package data (this repo!)
     })
       .on('error', function(err) {
         done(err);
@@ -113,14 +114,13 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should NOT generate issue links when we don\'t have a path', function(done) {
+  it('should not generate issue links when package.json does NOT have a bugs URL', function(done) {
     preparing(3);
 
     conventionalChangelogCore({
       config: preset,
       context: {
-        packageData: {
-        },
+        packageData: {},    // Empty package data
       },
       pkg: {
         path: __dirname + '/fixtures/bitbucket-host.json',
@@ -136,29 +136,26 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should not generate issue refs in the footer when they appear in the subject', function(done) {
+  it('should not generate issue refs in-the-footer when the issue(s) appear in the subject line (the issues remain in the subject line)', function(done) {
     preparing(3);
 
     conventionalChangelogCore({
       config: preset,
-      context: {
-        packageData: {
-
-        },
-      },
+      // Default package data (this repo!)
     })
       .on('error', function(err) {
         done(err);
       })
       .pipe(through(function(chunk) {
         chunk = chunk.toString();
-        expect(chunk).to.include(' fix [#88]');
+        expect(chunk).to.include('**awesome:** fix [#88](');
+        expect(chunk).to.include('88) [#TR-55](');
         expect(chunk).to.not.include('closes [#88](');
         done();
       }));
   });
 
-  it('should NOT replace @username with GitHub user URL as feature is not available on BitBucket', function(done) {
+  it('should not replace @username with GitHub user URL as feature is not available on BitBucket', function(done) {
     preparing(4);
 
     conventionalChangelogCore({
@@ -273,7 +270,7 @@ describe('angular preset', function() {
       }));
   });
 
-  it('should support directly utilizing http/https repository urls', function(done) {
+  it('should always output the repo URL using http/https even when the repo URL in package.json is some other protocol', function(done) {
     preparing(8);
     let i = 0;
 
@@ -297,14 +294,13 @@ describe('angular preset', function() {
     }));
   });
 
-  it('should render comma delimited issues reference in \'closes\' when having multiple references', function(done) {
+  it('should render multiple issues that are in the footer without links when package.json does NOT have a bugs URL', function(done) {
     preparing(9);
 
     conventionalChangelogCore({
       config: preset,
       context: {
-        packageData: {
-        },
+        packageData: {},
       },
       pkg: {
         path: __dirname + '/fixtures/bitbucket-host.json',
@@ -316,6 +312,25 @@ describe('angular preset', function() {
       .pipe(through(function(chunk) {
         chunk = chunk.toString();
         expect(chunk).to.include('closes #1223, #OBG-23');
+        done();
+      }));
+  });
+
+
+  it('should render multiple issues that are in the footer as links when package.json has a bugs URL', function(done) {
+    preparing(9);
+
+    conventionalChangelogCore({
+      config: preset,
+      // Default package data (this repo!)
+    })
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk) {
+        chunk = chunk.toString();
+        expect(chunk).to.include('closes [#1223](');
+        expect(chunk).to.include('1223), [#OBG-23]');
         done();
       }));
   });
