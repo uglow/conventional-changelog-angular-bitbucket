@@ -1,3 +1,5 @@
+'use strict';
+
 // START_CONFIT_GENERATED_CONTENT
 let config = {
   extends: ['google', 'plugin:node/recommended'],
@@ -9,7 +11,7 @@ let config = {
     'es6': true
   },
   globals: {
-    
+
   },
   parser: 'espree',
   parserOptions: {

@@ -24,9 +24,7 @@
     "url": "https://github.com/uglow/conventional-changelog-angular-bitbucket.git"
   },
   "scripts": {
-    "pre-release": "npm-run-all verify test:coverage build ",
-    "build": "cross-env NODE_ENV=production npm run clean:prod",
-    "clean:prod": "rimraf dist/",
+    "pre-release": "npm-run-all verify test:coverage",
     "commitmsg": "cz-customizable-ghooks",
     "dev": "cross-env NODE_ENV=development npm run verify:watch",
     "prepush": "npm-run-all verify test:coverage --silent",
