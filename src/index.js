@@ -17,9 +17,8 @@ let parserOpts = {
   revertCorrespondence: ['header', 'hash'],
 };
 
-
 let writerOpts = {
-  transform: function(commit, writerOpts) {
+  transform: function(commit, context) {
     let discard = true;
     let issues = [];
 
@@ -58,19 +57,20 @@ let writerOpts = {
       commit.hash = commit.hash.substring(0, 7);
     }
 
+    const issueUrl = context.packageData.bugs && context.packageData.bugs.url;
+
     if (typeof commit.subject === 'string') {
-      // Add any issues that are referenced in the subject line and them to our local issues array, but don't format them as links
-      (commit.subject.match(/#([0-9]+)/g) || []).forEach((issue) => issues.push(issue));
+      commit.subject = commit.subject.replace(/#([a-zA-Z0-9\-]+)/g, function(_, issue) {
+        issues.push(issue);
+        return formatIssue(issueUrl, issue);
+      });
     }
 
     // remove references that already appear in the subject
-    commit.references = commit.references.filter(function(reference) {
-      if (issues.indexOf(reference.issue) === -1) {
-        return true;
-      }
-
-      return false;
-    });
+    commit.references = commit.references
+      .filter((reference) => issues.indexOf(reference.issue) === -1)
+      .map((reference) => formatIssue(issueUrl, reference.issue))
+      .join(', ');
 
     return commit;
   },
@@ -98,3 +98,17 @@ module.exports = Q.all([
       writerOpts: writerOpts,
     };
   });
+
+/**
+ * Formats issues using the issueURL as the prefix of the complete issue URL
+ * @param {string} issueUrl - if the issueURL is falsy, then the issue will be printed as-is. Otherwise, it will be printed as a link
+ * @param {string} issue - the issue reference (without the # in-front of it)
+ * @return {string} - Either the issue or a Markdown-formatted link to the issue.
+ */
+function formatIssue(issueUrl, issue) {
+  if (issueUrl) {
+    return '[#' + issue + '](' + issueUrl + '/' + issue + ')';
+  } else {
+    return '#' + issue;
+  }
+}
