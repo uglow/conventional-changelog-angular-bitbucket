@@ -23,7 +23,7 @@ assumes that the repository is hosted on GitHub, but it will still work (with li
 This preset aims to produce a changelog that contains the correct formatting and links for BitBucket.
  
 ### Differences to [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog)
-- Issue links are highlighted automatically by BitBucket
+- Issue links are highlighted automatically by BitBucket. But if there is a bugs URL in `package.json`, then issue links WILL be generated.
 - @-mentions are highlighted automatically by BitBucket
 - Commit links use a different format
 - Comparison links (between two versions) use a different format
@@ -31,7 +31,7 @@ This preset aims to produce a changelog that contains the correct formatting and
 <!--[RM_INSTALL]-->
 ## Install
 
-    npm install conventional-changelog-angular-bitbucket
+    npm install conventional-changelog-angular-bitbucket --save-dev
 
 
 <!--[]-->
@@ -44,6 +44,28 @@ This preset aims to produce a changelog that contains the correct formatting and
 ```
 const changelog = require('conventional-changelog');
 changelog({preset: 'angular-bitbucket'});
+```
+
+### Usage with `corp-semantic-release`
+
+```json
+{
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.host.com/org/repo.git"
+  },
+  "bugs": {
+    "url": "https://some.url/issues"
+  },
+  "scripts": {
+    "semantic-release": "corp-semantic-release --changelogpreset angular-bitbucket"
+  },
+  "devDependencies": {
+    "conventional-changelog-angular-bitbucket": "*",
+    "corp-semantic-release": "6.2.0"
+  }
+}
+
 ```
 
 <!--[RM_CONTRIBUTING]-->
