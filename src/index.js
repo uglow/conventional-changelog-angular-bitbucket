@@ -1,5 +1,6 @@
 'use strict';
 
+let conventionalChangelogAngularPromise = require('conventional-changelog-angular');
 let compareFunc = require('compare-func');
 let Q = require('q');
 let readFile = Q.denodeify(require('fs').readFile);
@@ -86,16 +87,22 @@ module.exports = Q.all([
   readFile(resolve(__dirname, 'templates/header.hbs'), 'utf-8'),
   readFile(resolve(__dirname, 'templates/commit.hbs'), 'utf-8'),
   readFile(resolve(__dirname, 'templates/footer.hbs'), 'utf-8'),
+  conventionalChangelogAngularPromise,
 ])
-  .spread(function(template, header, commit, footer) {
+  .spread(function(template, header, commit, footer, conventionalChangelogAngular) {
     writerOpts.mainTemplate = template;
     writerOpts.headerPartial = header;
     writerOpts.commitPartial = commit;
     writerOpts.footerPartial = footer;
 
     return {
+      recommendedBumpOpts: conventionalChangelogAngular.recommendedBumpOpts,
       parserOpts: parserOpts,
       writerOpts: writerOpts,
+      conventionalChangelog: {
+        parserOpts: parserOpts,
+        writerOpts: writerOpts,
+      },
     };
   });
 

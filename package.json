@@ -56,13 +56,14 @@
   },
   "dependencies": {
     "compare-func": "1.3.1",
+    "conventional-changelog-angular": "5.0.1",
     "q": "1.4.1"
   },
   "devDependencies": {
     "better-than-before": "1.0.0",
     "chai": "3.4.1",
     "chokidar-cli": "1.2.0",
-    "conventional-changelog-core": "1.8.0",
+    "conventional-changelog-core": "3.1.0",
     "coveralls": "2.13.1",
     "cross-env": "3.1.4",
     "cz-customizable": "5.2.0",
