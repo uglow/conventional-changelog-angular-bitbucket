@@ -53,6 +53,10 @@ betterThanBefore.setups([
   function() {
     gitDummyCommit(['feat(foo): add thing', 'closes #1223 #OBG-23']);
   },
+  function() {
+    gitDummyCommit(['Revert \\"feat: bad feature\\"', 'This reverts commit 12345.'], false);
+    gitDummyCommit(['revert: feat: custom revert format', 'This reverts commit 5678.']);
+  },
 ]);
 
 describe('angular preset', function() {
@@ -332,6 +336,24 @@ describe('angular preset', function() {
         chunk = chunk.toString();
         expect(chunk).to.include('closes [#1223](');
         expect(chunk).to.include('1223), [#OBG-23]');
+        done();
+      }));
+  });
+
+  it('should render revert commit using standard Git revert message convention', function(done) {
+    preparing(10);
+
+    conventionalChangelogCore({
+      config: preset,
+      // Default package data (this repo!)
+    })
+      .on('error', function(err) {
+        done(err);
+      })
+      .pipe(through(function(chunk) {
+        chunk = chunk.toString();
+        expect(chunk).to.include('feat: bad feature');
+        expect(chunk).to.include('feat: custom revert format');
         done();
       }));
   });
