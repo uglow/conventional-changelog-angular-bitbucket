@@ -69,7 +69,7 @@
     "cross-env": "3.1.4",
     "cz-customizable": "5.2.0",
     "cz-customizable-ghooks": "1.5.0",
-    "eslint": "4.5.0",
+    "eslint": "4.18.2",
     "eslint-config-google": "0.9.1",
     "eslint-friendly-formatter": "3.0.0",
     "eslint-plugin-node": "5.1.1",
