@@ -81,7 +81,7 @@
     "npm-run-all": "4.0.2",
     "nyc": "11.1.0",
     "rimraf": "2.6.1",
-    "semantic-release": "15.11.0",
+    "semantic-release": "17.2.3",
     "shelljs": "0.7.3",
     "through2": "2.0.0",
     "travis-deploy-once": "5.0.9"
