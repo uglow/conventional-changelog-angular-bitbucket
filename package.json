@@ -82,7 +82,7 @@
     "nyc": "11.1.0",
     "rimraf": "2.6.1",
     "semantic-release": "15.11.0",
-    "shelljs": "0.7.3",
+    "shelljs": "0.8.5",
     "through2": "2.0.0",
     "travis-deploy-once": "5.0.9"
   },
